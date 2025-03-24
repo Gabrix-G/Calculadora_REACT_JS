@@ -1,16 +1,147 @@
 body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff4757 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+  max-width: 500px;
 }
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
+/* Estilos de Calculadora (mantenemos los anteriores) */
+.calculadora-container {
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.1);
+  padding: 40px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transform: perspective(1000px) rotateX(-10deg) rotateY(10deg) scale(0.9);
+  transition: all 0.5s ease;
+}
+
+/* Estilos anteriores de calculadora se mantienen igual */
+
+/* Nuevos estilos para Lista de Tareas */
+.lista-tareas-container {
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.1);
+  padding: 40px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transform: perspective(1000px) rotateX(-10deg) rotateY(10deg) scale(0.9);
+  transition: all 0.5s ease;
+}
+
+.lista-tareas-container:hover {
+  transform: perspective(1000px) rotateX(0) rotateY(0) scale(1);
+}
+
+.lista-tareas-container h2 {
+  color: #ff4757;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.agregar-tarea {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.agregar-tarea input {
+  flex-grow: 1;
+  padding: 15px;
+  border: 2px solid #ff6b6b;
+  border-radius: 10px 0 0 10px;
+  font-size: 16px;
+  background-color: #fff1f3;
+}
+
+.agregar-tarea button {
+  padding: 15px;
+  background-color: #ff4757;
+  color: white;
+  border: none;
+  border-radius: 0 10px 10px 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.agregar-tarea button:hover {
+  background-color: #ff6b6b;
+}
+
+.lista-tareas {
+  list-style-type: none;
+  padding: 0;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.tarea-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff1f3;
+  margin-bottom: 10px;
+  padding: 15px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.tarea-item:hover {
+  transform: translateX(5px);
+  box-shadow: 0 5px 15px rgba(255,75,87,0.1);
+}
+
+.tarea-item span {
+  flex-grow: 1;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.tarea-item.completada span {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.eliminar-tarea {
+  background-color: #ff4757;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.eliminar-tarea:hover {
+  background-color: #ff6b6b;
+}
+
+.contador-tareas {
+  margin-top: 20px;
+  color: #ff4757;
+  font-weight: bold;
+}
