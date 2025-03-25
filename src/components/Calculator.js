@@ -1,96 +1,69 @@
 import React, { useState } from 'react';
 
 function Calculator() {
-  const [numero1, setNumero1] = useState('');
-  const [numero2, setNumero2] = useState('');
-  const [operacion, setOperacion] = useState('suma');
-  const [resultado, setResultado] = useState(null);
+  const [operation, setOperation] = useState('Suma');
+  const [num1, setNum1] = useState('');
+  const [num2, setNum2] = useState('');
+  const [result, setResult] = useState(null);
 
-  const handleCalcular = () => {
-    const num1 = parseFloat(numero1);
-    const num2 = parseFloat(numero2);
-
-    if (isNaN(num1) || isNaN(num2)) {
-      alert('Por favor, ingrese números válidos');
-      return;
-    }
-
-    let result;
-    switch (operacion) {
-      case 'suma':
-        result = num1 + num2;
+  const calculate = () => {
+    const n1 = parseFloat(num1);
+    const n2 = parseFloat(num2);
+    
+    switch(operation) {
+      case 'Suma':
+        setResult(n1 + n2);
         break;
-      case 'resta':
-        result = num1 - num2;
+      case 'Resta':
+        setResult(n1 - n2);
         break;
-      case 'multiplicacion':
-        result = num1 * num2;
+      case 'Multiplicación':
+        setResult(n1 * n2);
         break;
-      case 'division':
-        if (num2 === 0) {
-          alert('No se puede dividir por cero');
-          return;
-        }
-        result = num1 / num2;
+      case 'División':
+        setResult(n1 / n2);
         break;
       default:
-        result = num1 + num2;
+        setResult(null);
     }
-
-    setResultado(result);
   };
 
-  const handleLimpiar = () => {
-    setNumero1('');
-    setNumero2('');
-    setResultado(null);
-    setOperacion('suma');
+  const clearFields = () => {
+    setNum1('');
+    setNum2('');
+    setResult(null);
   };
 
   return (
-    <div className="calculadora-container">
-      <select 
-        value={operacion} 
-        onChange={(e) => setOperacion(e.target.value)}
-        className="operacion-select"
-      >
-        <option value="suma">Suma</option>
-        <option value="resta">Resta</option>
-        <option value="multiplicacion">Multiplicación</option>
-        <option value="division">División</option>
+    <div>
+      <select value={operation} onChange={(e) => setOperation(e.target.value)}>
+        <option>Suma</option>
+        <option>Resta</option>
+        <option>Multiplicación</option>
+        <option>División</option>
       </select>
-
-      <div className="input-group">
-        <label>Número 1:</label>
-        <input 
-          type="number" 
-          value={numero1} 
-          onChange={(e) => setNumero1(e.target.value)}
-        />
+      
+      <input 
+        type="number" 
+        value={num1} 
+        onChange={(e) => setNum1(e.target.value)}
+        placeholder="Número 1"
+      />
+      
+      <input 
+        type="number" 
+        value={num2} 
+        onChange={(e) => setNum2(e.target.value)}
+        placeholder="Número 2"
+      />
+      
+      <div>
+        <button onClick={calculate}>Calcular</button>
+        <button onClick={clearFields}>Limpiar</button>
       </div>
-
-      <div className="input-group">
-        <label>Número 2:</label>
-        <input 
-          type="number" 
-          value={numero2} 
-          onChange={(e) => setNumero2(e.target.value)}
-        />
-      </div>
-
-      <div className="button-group">
-        <button onClick={handleLimpiar} className="limpiar-btn">
-          Limpiar
-        </button>
-        <button onClick={handleCalcular} className="calcular-btn">
-          Calcular
-        </button>
-      </div>
-
-      {resultado !== null && (
-        <div className="resultado">
-          Resultado: {resultado}
-        </div>
+      
+      {result !== null && (
+        <div>Resultado: {result}</div>
       )}
     </div>
   );

@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 
 function ListaTareas() {
-  const [tarea, setTarea] = useState('');
   const [tareas, setTareas] = useState([]);
+  const [nuevaTarea, setNuevaTarea] = useState('');
 
   const agregarTarea = () => {
-    if (tarea.trim() !== '') {
-      setTareas([...tareas, { 
-        id: Date.now(), 
-        texto: tarea,
-        completada: false 
-      }]);
-      setTarea('');
+    if (nuevaTarea.trim() !== '') {
+      setTareas([
+        ...tareas, 
+        { 
+          id: Date.now(), 
+          texto: nuevaTarea, 
+          completada: false 
+        }
+      ]);
+      setNuevaTarea('');
     }
   };
 
@@ -26,40 +29,34 @@ function ListaTareas() {
   };
 
   return (
-    <div className="lista-tareas-container">
-      <h2>Lista de Tareas</h2>
-      <div className="agregar-tarea">
+    <div>
+      <div>
         <input 
           type="text" 
-          value={tarea}
-          onChange={(e) => setTarea(e.target.value)}
+          value={nuevaTarea}
+          onChange={(e) => setNuevaTarea(e.target.value)}
           placeholder="Ingrese una nueva tarea"
         />
         <button onClick={agregarTarea}>Agregar Tarea</button>
       </div>
-      <ul className="lista-tareas">
-        {tareas.map((tarea) => (
-          <li 
-            key={tarea.id} 
-            className={`tarea-item ${tarea.completada ? 'completada' : ''}`}
-          >
-            <span onClick={() => toggleCompletada(tarea.id)}>
+      
+      <ul className="task-list">
+        {tareas.map(tarea => (
+          <li key={tarea.id}>
+            <span className={tarea.completada ? 'task-completed' : ''}>
               {tarea.texto}
             </span>
-            <button 
-              onClick={() => eliminarTarea(tarea.id)} 
-              className="eliminar-tarea"
-            >
-              ✖
-            </button>
+            <div>
+              <button onClick={() => toggleCompletada(tarea.id)}>
+                {tarea.completada ? 'Deshacer' : 'Completar'}
+              </button>
+              <button onClick={() => eliminarTarea(tarea.id)}>
+                Eliminar
+              </button>
+            </div>
           </li>
         ))}
       </ul>
-      {tareas.length > 0 && (
-        <div className="contador-tareas">
-          Tareas totales: {tareas.length}
-        </div>
-      )}
     </div>
   );
 }
